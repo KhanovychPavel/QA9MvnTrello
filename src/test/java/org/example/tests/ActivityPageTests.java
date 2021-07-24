@@ -51,4 +51,6 @@ public class ActivityPageTests extends TestBase {
         Assert.assertTrue(activityPage.textReceiveLastListAddedFromActivity(listTitle));
     }
 
+
+
 }

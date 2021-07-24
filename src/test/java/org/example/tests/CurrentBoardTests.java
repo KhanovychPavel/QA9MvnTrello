@@ -3,9 +3,11 @@ package org.example.tests;
 import org.example.pages.BoardsPageHelper;
 import org.example.pages.CurrentBoardPageHelper;
 import org.example.pages.LoginPageHelper;
+import org.example.util.DataProviders;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
@@ -40,6 +42,20 @@ public class CurrentBoardTests extends TestBase {
         int listSizeInitially = qa9HaifaPage.listsQuantity();
 
         qa9HaifaPage.newListCreating(listTitle);
+
+        int listsSizeAfterNewListCreating = qa9HaifaPage.listsQuantity();
+
+        Assert.assertEquals(listsSizeAfterNewListCreating, listSizeInitially + 1,
+                "New list wasn't created");
+    }
+
+    @Test(dataProviderClass = DataProviders.class, dataProvider = "newListCreating")
+    public void newListCreatingTestParametr(String nameList) {
+//        String listTitle = "8";
+
+        int listSizeInitially = qa9HaifaPage.listsQuantity();
+
+        qa9HaifaPage.newListCreating(nameList);
 
         int listsSizeAfterNewListCreating = qa9HaifaPage.listsQuantity();
 
