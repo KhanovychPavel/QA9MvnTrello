@@ -1,6 +1,6 @@
 package org.example.pages;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +8,9 @@ import org.openqa.selenium.support.FindBy;
 public class HelpPageHelper extends PageBase {
     @FindBy(tagName = "h1")
     WebElement helpPageTagName;
+    @FindBy(xpath = "//span[contains(text(),'All systems operational')]")
+    WebElement allSystemsOperationalButton;
+
     @FindBy(xpath = "//span[contains(text(),'Go to your boards')]")
     WebElement goToYourBoardsButton;
     @FindBy(xpath = "(//button[@data-test-id='header-boards-menu-button']/span)[2]")
@@ -20,6 +23,11 @@ public class HelpPageHelper extends PageBase {
 
     public String getHelpPageTagName() {
         return helpPageTagName.getText();
+    }
+
+    public HelpPageHelper waitUntilPageIsLoaded() {
+        waitUntilElementIsVisible(helpPageTagName, 5);
+        return this;
     }
 
     public void printOpeningErrorMessage() {
@@ -48,6 +56,18 @@ public class HelpPageHelper extends PageBase {
 
     public boolean isCorrectPage() {
         return boardsIcon.getText().equals("Boards");
+    }
+
+    public String getWindowHandle() {
+        return driver.getWindowHandle();
+    }
+
+    public int getHandlesSize() {
+        return driver.getWindowHandles().size();
+    }
+
+    public WebDriver switchToSecondWindow(String firstWindowHandle) {
+        return driver.switchTo().window(getSecondWindowHandle(firstWindowHandle));
     }
 
 }

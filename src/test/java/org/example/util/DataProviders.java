@@ -118,7 +118,7 @@ public class DataProviders {
         int i = 0;
         for(char character : ch) {
             if ((48 <= (int)ch[i] && (int)ch[i]<= 57 ) || 65 <= (int)ch[i] && (int)ch[i] <= 90
-                    || 97 <= (int)ch[i] && (int)ch[i] <= 122){
+                    || 97 <= (int)ch[i] && (int)ch[i] <= 122) {
 
                 list.add(character);
             }

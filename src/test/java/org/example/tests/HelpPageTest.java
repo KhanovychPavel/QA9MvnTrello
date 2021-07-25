@@ -39,43 +39,43 @@ public class HelpPageTest extends TestBase {
     }
 
     @Test
-    public void helpWindowTests() throws InterruptedException {
-        String firstWindowHandle = driver.getWindowHandle();
-        int windowsSizeBefore = driver.getWindowHandles().size();
+    public void helpWindowTests() {
+        String firstWindowHandle = helpPage.getWindowHandle();
+        int windowsSizeBefore = helpPage.getHandlesSize();
         menuPage.openHelpPage();
-        Thread.sleep(2000);
-        int windowsSizeAfter = driver.getWindowHandles().size();
+        helpPage.waitUntilPageIsLoaded();
+        int windowsSizeAfter = helpPage.getHandlesSize();
 
         if(windowsSizeAfter != windowsSizeBefore + 1) {
             helpPage.printOpeningErrorMessage();
             return;
         }
-            driver.switchTo().window(helpPage.getSecondWindowHandle(firstWindowHandle));
+        helpPage.switchToSecondWindow(firstWindowHandle);
 
         Assert.assertEquals(helpPage.getHelpPageTagName(),"Get help with Trello",
                 "Wrong page was opened");
     }
 
     @Test
-    public void goToYourBoards() throws InterruptedException {
-        String firstWindowHandle = driver.getWindowHandle();
-        int windowsSizeBefore = driver.getWindowHandles().size();
+    public void goToYourBoards() {
+        String firstWindowHandle = helpPage.getWindowHandle();
+        int windowsSizeBefore = helpPage.getHandlesSize();
         menuPage.openHelpPage();
-        Thread.sleep(2000);
-        int windowsSizeAfter = driver.getWindowHandles().size();
+        helpPage.waitUntilPageIsLoaded();
+        int windowsSizeAfter = helpPage.getHandlesSize();
 
         if(windowsSizeAfter != windowsSizeBefore + 1) {
             helpPage.printOpeningErrorMessage();
             return;
         }
         String secondWindowHandle = helpPage.getSecondWindowHandle(firstWindowHandle);
-        driver.switchTo().window(secondWindowHandle);
+        helpPage.switchToSecondWindow(firstWindowHandle);
 
         helpPage.returnToMyBoards();
 
-        int currentWindowsSize = driver.getWindowHandles().size();
+        int currentWindowsSize = helpPage.getHandlesSize();
 
-        if (currentWindowsSize != windowsSizeAfter || !driver.getWindowHandle().equals(secondWindowHandle)) {
+        if (currentWindowsSize != windowsSizeAfter || !helpPage.getWindowHandle().equals(secondWindowHandle)) {
             helpPage.printSwitchErrorMessage();
             return;
         }

@@ -32,8 +32,4 @@ public class ActivityPageHelper extends PageBase {
         }
         return res;
     }
-
-    public void printChars() {
-
-    }
 }
