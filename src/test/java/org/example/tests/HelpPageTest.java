@@ -34,53 +34,30 @@ public class HelpPageTest extends TestBase {
                 .waitUntilPageIsLoaded();
         menuPage
                 .openPage()
-                .waitUntilPageIsLoaded();
+                .waitUntilPageIsLoaded()
+                .openHelpPage();
+        helpPage.waitUntilPageIsLoaded();
 
     }
 
     @Test
-    public void helpWindowTests() {
-        String firstWindowHandle = helpPage.getWindowHandle();
-        int windowsSizeBefore = helpPage.getHandlesSize();
-        menuPage.openHelpPage();
-        helpPage.waitUntilPageIsLoaded();
-        int windowsSizeAfter = helpPage.getHandlesSize();
-
-        if(windowsSizeAfter != windowsSizeBefore + 1) {
-            helpPage.printOpeningErrorMessage();
-            return;
-        }
-        helpPage.switchToSecondWindow(firstWindowHandle);
-
+    public void helpPageVerification() {
         Assert.assertEquals(helpPage.getHelpPageTagName(),"Get help with Trello",
                 "Wrong page was opened");
     }
 
     @Test
-    public void goToYourBoards() {
-        String firstWindowHandle = helpPage.getWindowHandle();
-        int windowsSizeBefore = helpPage.getHandlesSize();
-        menuPage.openHelpPage();
-        helpPage.waitUntilPageIsLoaded();
-        int windowsSizeAfter = helpPage.getHandlesSize();
+    public void closeHelpWindowByXVerif() {
+        helpPage.closeHelpPageAndSwitchToPreviousPage();
+        qa9HaifaPage.waitUntilPageIsLoaded();
+        Assert.assertTrue(qa9HaifaPage.isCorrectPage());
+    }
 
-        if(windowsSizeAfter != windowsSizeBefore + 1) {
-            helpPage.printOpeningErrorMessage();
-            return;
-        }
-        String secondWindowHandle = helpPage.getSecondWindowHandle(firstWindowHandle);
-        helpPage.switchToSecondWindow(firstWindowHandle);
-
-        helpPage.returnToMyBoards();
-
-        int currentWindowsSize = helpPage.getHandlesSize();
-
-        if (currentWindowsSize != windowsSizeAfter || !helpPage.getWindowHandle().equals(secondWindowHandle)) {
-            helpPage.printSwitchErrorMessage();
-            return;
-        }
-
-        Assert.assertTrue(helpPage.isCorrectPage(), "Switched on wrong page!");
+    @Test
+    public void returnToMyBoardsByPressGoToYourBoardButton() {
+        helpPage.closeWindowByPressGoToYourBoardButton();
+        boardsPage.waitUntilPageIsLoaded();
+        Assert.assertTrue(boardsPage.isCorrectPage(), "Switched on wrong page!");
 
     }
 }

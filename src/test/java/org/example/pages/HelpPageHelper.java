@@ -8,9 +8,6 @@ import org.openqa.selenium.support.FindBy;
 public class HelpPageHelper extends PageBase {
     @FindBy(tagName = "h1")
     WebElement helpPageTagName;
-    @FindBy(xpath = "//span[contains(text(),'All systems operational')]")
-    WebElement allSystemsOperationalButton;
-
     @FindBy(xpath = "//span[contains(text(),'Go to your boards')]")
     WebElement goToYourBoardsButton;
     @FindBy(xpath = "(//button[@data-test-id='header-boards-menu-button']/span)[2]")
@@ -21,53 +18,50 @@ public class HelpPageHelper extends PageBase {
         this.driver = driver;
     }
 
+    public String getWindowHandle() {
+        return driver.getWindowHandle();
+    }
+
+    public HelpPageHelper waitUntilPageIsLoaded() {
+        String firstWindowHandle = getWindowHandle();
+        waitUntilWindowsToBe(2,20);
+        String secondWindowHandle = getAnotherWindowHandle(firstWindowHandle);
+        driver.switchTo().window(secondWindowHandle);
+        waitUntilElementIsClickable(goToYourBoardsButton, 5);
+        return this;
+    }
+
     public String getHelpPageTagName() {
         return helpPageTagName.getText();
     }
 
-    public HelpPageHelper waitUntilPageIsLoaded() {
-        waitUntilElementIsVisible(helpPageTagName, 5);
-        return this;
-    }
-
-    public void printOpeningErrorMessage() {
-        System.out.println("Error! Opening of the page isn't correct!");
-    }
-
-    public String getSecondWindowHandle(String firstWindowHandle) {
-        String secondWindowHandle = "";
-        for (String handle : driver.getWindowHandles()) {
-            if (!handle.equals(firstWindowHandle)) {
-                secondWindowHandle = handle;
-            }
-        }
-        return secondWindowHandle;
-    }
-
-    public void returnToMyBoards() {
-        waitUntilElementIsClickable(goToYourBoardsButton, 5);
+    public void closeWindowByPressGoToYourBoardButton() {
         goToYourBoardsButton.click();
-        waitUntilElementIsClickable(boardsIcon, 30);
     }
 
-    public void printSwitchErrorMessage() {
-        System.out.println("Error! Switch to the page isn't correct!");
+    public void closeHelpPageAndSwitchToPreviousPage() {
+        String currentWindowHandle = driver.getWindowHandle();
+        String anotherWindowHandle = getAnotherWindowHandle(currentWindowHandle);
+        closeCurrentWindow();
+        driver.switchTo().window(anotherWindowHandle);
     }
 
-    public boolean isCorrectPage() {
-        return boardsIcon.getText().equals("Boards");
-    }
 
-    public String getWindowHandle() {
-        return driver.getWindowHandle();
+
+
+    public WebDriver switchToSecondWindow(String firstWindowHandle) {
+        return driver.switchTo().window(getAnotherWindowHandle(firstWindowHandle));
     }
 
     public int getHandlesSize() {
         return driver.getWindowHandles().size();
     }
 
-    public WebDriver switchToSecondWindow(String firstWindowHandle) {
-        return driver.switchTo().window(getSecondWindowHandle(firstWindowHandle));
+    public void printOpeningErrorMessage() {
+        System.out.println("Error! Opening of the page isn't correct!");
     }
 
+    public void printSwitchErrorMessage() {
+        System.out.println("Error! Switch to the page isn't correct!");
+    }
 }

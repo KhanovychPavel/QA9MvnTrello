@@ -17,7 +17,10 @@ public class BoardsPageHelper extends PageBase {
     }
 
     public BoardsPageHelper waitUntilPageIsLoaded() {
+        log4j.startMethod("BoardsPageHelper - waitUntilPageIsLoaded()");
+        log4j.info("BoardsPageHelper - wait for 'Boards' button is clickable");
         waitUntilElementIsClickable(boardsIcon, 30); // wait for "Boards" button is clickable
+        log4j.endMethod("BoardsPageHelper - waitUntilPageIsLoaded()");
         return this;
     }
 
@@ -27,9 +30,18 @@ public class BoardsPageHelper extends PageBase {
 
     public void boardsButtonInWorkspacesMenuClick() {
                     // to the "Board" in workspaces screen
+        log4j.startMethod("BoardsPageHelper - boardsButtonInWorkspacesMenuClick()");
+        log4j.info("BoardsPageHelper - wait the 'Board' is clickable");
         waitUntilElementIsClickable(boardsMenuLeft, 10); // wait the "Board" is clickable
+        log4j.info("BoardsPageHelper - click the 'Board'");
         boardsMenuLeft.click(); // click the "Board"
+        log4j.info("BoardsPageHelper - wait menu 'Your Workspace boards' is visible");
         waitUntilElementIsVisible(headerYourWorkspace, 10); // wait menu "Your Workspace boards" is visible
+        log4j.endMethod("BoardsPageHelper - boardsButtonInWorkspacesMenuClick()");
+    }
+
+    public boolean isCorrectPage() {
+        return getBoardsButtonName().equals("Boards");
     }
 
 }

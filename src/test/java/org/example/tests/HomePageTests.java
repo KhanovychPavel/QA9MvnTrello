@@ -6,8 +6,9 @@ import org.testng.annotations.Test;
 
 public class HomePageTests extends TestBase {
 
-    @Test
+    @Test(groups = {"smoke", "regression", "system"})
     public void verifyApplTest() {
+        log4j.startTestCase("verifyApplTest");
         Assert.assertTrue(homePage.isCorrectPage());
 
     }

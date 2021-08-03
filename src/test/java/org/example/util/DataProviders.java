@@ -2,9 +2,7 @@ package org.example.util;
 
 import org.testng.annotations.DataProvider;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -156,6 +154,64 @@ public class DataProviders {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
+
+
+
+//    public Object generateRandomLoginStream(List<Character> getChars, int min, int max) {
+//        Random r = new Random();
+//        String res = "";
+//        for(int i = 0; i < countSymbols(min, max); i++) {
+//            int index = r.nextInt(getChars.size());
+//            res += getChars.get(index);
+//        }
+//        return res;
+//    }
+//
+//    public Object generateRandomPasswordStream(List<Character> getChars) {
+//        int min = 5;
+//        int max = 10;
+//        Random r = new Random();
+//        String res = "";
+//        for(int i = 0; i < countSymbols(min, max); i++) {
+//            int index = r.nextInt(getChars.size());
+//            res += getChars.get(index);
+//        }
+//        return res;
+//    }
+//
+//    public Object loginStreamer() throws IOException {
+//        String path =
+//                "C:\\Users\\user\\IdeaProjects\\QA9Maven\\QA9MvnTrello" +
+//                        "\\src\\test\\resources\\loginNegative_numberOfLoginSymbols_Sel-20";
+//        FileReader x = new FileReader(path);
+//        BufferedReader in = new BufferedReader(x);
+//
+//        List<Object[]> userData = new ArrayList<>();
+//        String line = in.readLine();
+//        while (line != null) {
+//            userData.add(line.split(";"));
+//            line = in.readLine();
+//        }
+//        in.close();
+//        return userData;
+//    }
+//
+//    public Object passwordStreamer() throws IOException {
+//        String path =
+//                "C:\\Users\\user\\IdeaProjects\\QA9Maven\\QA9MvnTrello" +
+//                        "\\src\\test\\resources\\loginNegative_numberOfPasswordSymbols_Sel-20";
+//        FileReader x = new FileReader(path);
+//        BufferedReader in = new BufferedReader(x);
+//
+//        List<Object[]> userData = new ArrayList<>();
+//        String line = in.readLine();
+//        while (line != null) {
+//            userData.add(line.split(";"));
+//            line = in.readLine();
+//        }
+//        in.close();
+//        return userData;
+//    }
 
 }
 
