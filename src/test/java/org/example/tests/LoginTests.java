@@ -29,7 +29,7 @@ public class LoginTests extends TestBase {
 
     }
 
-     @Test
+    @Test
     public void negativeLogin() {
 
         loginPage.LoginNotAttl("romuska", "gromuska"); //this method replaces 3 methods above
@@ -49,7 +49,7 @@ public class LoginTests extends TestBase {
         log4j.endTestCase2();
     }
 
-    @Test(groups = {"system","smoke"},dataProviderClass = DataProviders.class, dataProvider = "loginNegative_Sel_20")
+    @Test(groups = {"system"}, dataProviderClass = DataProviders.class, dataProvider = "loginNegative_Sel_20")
     public void negativeLogin_Sel_20(String login, String password) {
         loginPage.LoginNotAttl(login, password);
         Assert.assertEquals(loginPage.getErrorMessage(), "There isn't an account for this username"
@@ -63,7 +63,7 @@ public class LoginTests extends TestBase {
                 "There isn't an account for this email", "The error message isn't correct");
     }
 
-    @Test(groups = {"smoke", "system"},dataProviderClass = DataProviders.class, dataProvider = "loginPositive")
+    @Test(groups = {"smoke", "system"}, dataProviderClass = DataProviders.class, dataProvider = "loginPositive")
     public void positiveLogin(String login, String password) {
 //        loginPage.loginAttl(LOGIN, PASSWORD); //this method replaces 4 methods above
         loginPage.loginAttl(login, password);

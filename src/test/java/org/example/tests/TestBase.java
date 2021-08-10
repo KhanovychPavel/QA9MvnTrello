@@ -88,6 +88,8 @@ protected EventFiringWebDriver driver;
 //    driver = WebDriverPool.DEFAULT.getDriver(gridHubUrl, capabilities);
     ChromeOptions options = new ChromeOptions();
     options.addArguments("lang=" + "en");
+//    options.addArguments("--headless"); // headless mode
+//    options.addArguments("--disable-gpu"); // headless mode
     driver = new EventFiringWebDriver(new ChromeDriver(options));
     driver.register(new MyListener());
     driver.get(baseUrl);
@@ -103,8 +105,8 @@ protected EventFiringWebDriver driver;
   @AfterMethod(alwaysRun = true)
   public void finishTest(ITestResult result) {
     if (result.getStatus() == ITestResult.FAILURE) {
-      log4j.error("Test was failure");
-      getScreen((TakesScreenshot) driver);
+      log4j.error("The test failed");
+      getScreen((TakesScreenshot) driver); // off in headless mode
     }
   }
 
